@@ -1,19 +1,35 @@
 import { render } from "@testing-library/react";
 
+import { useDispatch, useSelector } from "react-redux";
+
 import App from "./App";
 
+import restaurants from "../fixtures/restaurants";
+
+jest.mock("react-redux");
+
 describe("App 컴포넌트", () => {
-  const AppComponent = <App />;
+  const dispatch = jest.fn();
 
-  context("랜더할 때", () => {
-    const { container } = render(AppComponent);
+  useDispatch.mockImplementation(() => dispatch);
 
-    it("레스토랑 앱의 제목이 출력된다.", () => {
-      expect(container).toHaveTextContent(/Restaurants/);
+  useSelector.mockImplementation((selector) => selector({ restaurants }));
+
+  const { getByText } = render(<App />);
+
+  context("랜더되면", () => {
+    it("레스토랑 앱의 제목과 목록이 출력된다.", () => {
+      expect(getByText(/Restaurants/)).not.toBeNull();
+      expect(getByText(/정돈/)).not.toBeNull();
     });
+  });
 
-    it("레스토랑 목록이 출력된다.", () => {
-      expect(container).toHaveTextContent(/정돈/);
+  context("초기에 실행할 때", () => {
+    it("setRestaurants 액션을 디스패치한다.", () => {
+      expect(dispatch).toBeCalledWith({
+        type: "setRestaurants",
+        payload: { restaurants },
+      });
     });
   });
 });

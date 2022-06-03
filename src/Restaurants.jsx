@@ -1,9 +1,12 @@
-export default function Restaurants() {
+export default function Restaurants({ restaurants }) {
   return (
     <>
-      <h1>Restaurants</h1>
       <ul>
-        <li></li>
+        {restaurants.map((restaurant) => (
+          <li key={restaurant.id}>
+            {restaurant.name} | {restaurant.category} | {restaurant.address}
+          </li>
+        ))}
       </ul>
     </>
   );

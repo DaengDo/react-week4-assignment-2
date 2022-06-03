@@ -1,3 +1,17 @@
-const initialState = { restaurants: [] };
+const initialState = {
+  restaurants: [],
+};
 
-export const reducer = (state = initialState, action) => {};
+const reducer = (state = initialState, action) => {
+  if (action.type === "setRestaurants") {
+    const { restaurants } = action.payload;
+
+    return {
+      ...state,
+      restaurants,
+    };
+  }
+  return state;
+};
+
+export default reducer;
