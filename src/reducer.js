@@ -1,5 +1,10 @@
 const initialState = {
   restaurants: [],
+  restaurant: {
+    name: "",
+    category: "",
+    adress: "",
+  },
 };
 
 const reducer = (state = initialState, action) => {

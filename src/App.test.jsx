@@ -13,7 +13,9 @@ describe("App 컴포넌트", () => {
 
   useDispatch.mockImplementation(() => dispatch);
 
-  useSelector.mockImplementation((selector) => selector({ restaurants }));
+  useSelector.mockImplementation((selector) =>
+    selector({ restaurants, restaurant: {} }),
+  );
 
   const { getByText } = render(<App />);
 

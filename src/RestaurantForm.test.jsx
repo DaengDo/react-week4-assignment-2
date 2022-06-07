@@ -3,12 +3,32 @@ import { fireEvent, render } from "@testing-library/react";
 import RestaurantForm from "./RestaurantForm";
 
 describe("RestaurantsForm 컴포넌트", () => {
-  const handleClick = jest.fn();
-
   context("등록 버튼을 누르면", () => {
-    const { getByText } = render(<RestaurantForm onClick={handleClick} />);
+    const restaurant = {
+      name: "묘오또",
+      category: "일식",
+      adress: "서울시 서초구 방배동",
+    };
+
+    const handleClick = jest.fn();
+    const handleChange = jest.fn();
+
+    const { getByText, getByDisplayValue } = render(
+      <RestaurantForm
+        restaurant={restaurant}
+        onChange={handleChange}
+        onClick={handleClick}
+      />,
+    );
 
     it("레스토랑 목록이 추가된다.", () => {
+      expect(getByDisplayValue("묘오또")).not.toBeNull();
+      expect(getByDisplayValue("일식")).not.toBeNull();
+      expect(getByDisplayValue("서울시 서초구 방배동")).not.toBeNull();
+      expect(getByText(/등록/)).not.toBeNull();
+
+      expect(handleChange).toBeCalled();
+
       fireEvent.click(getByText(/등록/));
 
       expect(handleClick).toBeCalled();
