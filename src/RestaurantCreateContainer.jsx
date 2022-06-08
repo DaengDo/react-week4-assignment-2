@@ -7,8 +7,9 @@ import { addRestaurant } from "./actions";
 export default function RestaurantCreateContainer() {
   const dispatch = useDispatch();
 
-  function handleClick() {
+  function handleClick(event) {
     dispatch(addRestaurant());
+    event.preventDefault();
   }
 
   const { restaurant } = useSelector((state) => ({

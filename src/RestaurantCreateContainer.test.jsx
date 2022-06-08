@@ -14,7 +14,7 @@ describe("RestaurantCreateContainer 컴포넌트", () => {
       restaurant: {
         name: "묘오또",
         category: "일식",
-        adress: "서울시",
+        address: "서울시",
       },
     }),
   );
