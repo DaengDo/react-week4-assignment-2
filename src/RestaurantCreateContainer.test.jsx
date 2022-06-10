@@ -34,6 +34,18 @@ describe("RestaurantCreateContainer 컴포넌트", () => {
       expect(getByDisplayValue("서울시")).not.toBeNull();
       expect(getByText("등록")).not.toBeNull();
 
+      fireEvent.change(getByDisplayValue("서울시"), {
+        target: { value: "서울시 강남구" },
+      });
+
+      expect(dispatch).toBeCalledWith({
+        type: "changeRestaurantField",
+        payload: {
+          field: "address",
+          value: "서울시 강남구",
+        },
+      });
+
       fireEvent.click(getByText("등록"));
 
       expect(dispatch).toBeCalledWith({

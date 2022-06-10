@@ -1,10 +1,12 @@
+const initialRestaurant = {
+  name: "",
+  category: "",
+  address: "",
+};
+
 const initialState = {
   restaurants: [],
-  restaurant: {
-    name: "",
-    category: "",
-    address: "",
-  },
+  restaurant: initialRestaurant,
 };
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +18,29 @@ const reducer = (state = initialState, action) => {
       restaurants,
     };
   }
+
+  if (action.type === "changeRestaurantField") {
+    const { field, value } = action.payload;
+
+    return {
+      ...state,
+      restaurant: {
+        ...state.restaurant,
+        [field]: value,
+      },
+    };
+  }
+
+  if (action.type === "addRestaurant") {
+    const { restaurants, restaurant } = state;
+
+    return {
+      ...state,
+      restaurants: [...restaurants, restaurant],
+      restaurant: initialRestaurant,
+    };
+  }
+
   return state;
 };
 
