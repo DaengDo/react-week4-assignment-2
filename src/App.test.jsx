@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import App from "./App";
 
-import restaurants from "../fixtures/restaurants";
-
 jest.mock("react-redux");
 
 describe("App 컴포넌트", () => {
@@ -14,15 +12,16 @@ describe("App 컴포넌트", () => {
   useDispatch.mockImplementation(() => dispatch);
 
   useSelector.mockImplementation((selector) =>
-    selector({ restaurants, restaurant: {} }),
+    selector({ restaurants: [], restaurant: {} }),
   );
 
-  const { getByText } = render(<App />);
+  const { queryByText } = render(<App />);
+  // getByText는 텍스트가 없는 경우 에러가 난다.
 
   context("랜더되면", () => {
     it("레스토랑 앱의 제목과 목록이 출력된다.", () => {
-      expect(getByText(/Restaurants/)).not.toBeNull();
-      expect(getByText(/정돈/)).not.toBeNull();
+      expect(queryByText(/Restaurants/)).not.toBeNull();
+      expect(queryByText(/정돈/)).toBeNull();
     });
   });
 
@@ -30,7 +29,7 @@ describe("App 컴포넌트", () => {
     it("setRestaurants 액션을 디스패치한다.", () => {
       expect(dispatch).toBeCalledWith({
         type: "setRestaurants",
-        payload: { restaurants },
+        payload: { restaurants: [] },
       });
     });
   });

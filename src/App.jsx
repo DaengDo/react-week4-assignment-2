@@ -4,15 +4,13 @@ import { useDispatch } from "react-redux";
 import RestaurantsContainer from "./RestaurantsContainer";
 import RestaurantCreateContainer from "./RestaurantCreateContainer";
 
-import restaurants from "../fixtures/restaurants";
-
 import { setRestaurants } from "./actions";
 
 export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setRestaurants(restaurants));
+    dispatch(setRestaurants([]));
   }, []);
 
   return (

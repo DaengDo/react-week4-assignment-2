@@ -45,6 +45,7 @@ describe("reducer", () => {
 
   context("addRestaurant 액션이 디스패치되면,", () => {
     const initialState = {
+      newId: 100,
       restaurants: [],
       restaurant: {
         name: "정돈",
@@ -56,7 +57,15 @@ describe("reducer", () => {
     const state = reducer(initialState, addRestaurant());
 
     it("레스토랑 목록이 추가되고, form이 초기화 된다.", () => {
+      const restaurant = state.restaurants[restaurants.length - 1];
+
+      expect(restaurant.id).toBe(100);
+      expect(restaurant.name).toBe("정돈");
+
+      expect(state.newId).toBe(101);
+
       expect(state.restaurants).toHaveLength(1);
+
       expect(state.restaurant.name).toBe("");
     });
   });
