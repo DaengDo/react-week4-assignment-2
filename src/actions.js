@@ -7,6 +7,15 @@ export function setRestaurants(restaurants) {
   };
 }
 
+export function setCategories(categories) {
+  return {
+    type: "setCategories",
+    payload: {
+      categories,
+    },
+  };
+}
+
 export function addRestaurant() {
   return {
     type: "addRestaurant",

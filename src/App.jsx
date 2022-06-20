@@ -1,21 +1,36 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+import CategoriesContainer from "./CategoriesContainer";
 import RestaurantsContainer from "./RestaurantsContainer";
 import RestaurantCreateContainer from "./RestaurantCreateContainer";
 
-import { setRestaurants } from "./actions";
+import { setRestaurants, setCategories } from "./actions";
+
+function loadCategories({ dispatch }) {
+  const categories = [];
+  // TODO: load categories from API server
+  dispatch(setCategories(categories));
+}
+
+function loadRestaurants({ dispatch }) {
+  const restaurants = [];
+  // TODO: load restaurants from API server
+  dispatch(setRestaurants(restaurants));
+}
 
 export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setRestaurants([]));
+    loadCategories({ dispatch });
+    loadRestaurants({ dispatch });
   }, []);
 
   return (
     <>
       <h1>Restaurants</h1>
+      <CategoriesContainer />
       <RestaurantsContainer />
       <RestaurantCreateContainer />
     </>
