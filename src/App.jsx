@@ -1,15 +1,18 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-import CategoriesContainer from "./CategoriesContainer";
-import RestaurantsContainer from "./RestaurantsContainer";
-import RestaurantCreateContainer from "./RestaurantCreateContainer";
+import CategoriesContainer from './CategoriesContainer';
+import RestaurantsContainer from './RestaurantsContainer';
+import RestaurantCreateContainer from './RestaurantCreateContainer';
 
-import { setRestaurants, setCategories } from "./actions";
+import { setRestaurants, setCategories } from './actions';
 
-function loadCategories({ dispatch }) {
-  const categories = [];
-  // TODO: load categories from API server
+import { fetchCategories } from './services/api';
+
+async function loadCategories({ dispatch }) {
+  const categories = await fetchCategories();
+  // TODO: fetch GET /categories
+  // REST - CRUD => READ - collection / memever, element
   dispatch(setCategories(categories));
 }
 
@@ -23,6 +26,7 @@ export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // dispatch(loadCategories());
     loadCategories({ dispatch });
     loadRestaurants({ dispatch });
   }, []);
